@@ -65,14 +65,14 @@
     </style>
 </head>
 <body>
-    <img src="/images/vp_banner_2025_ID.jpg" alt="banner">
-    <h1>Karl-Gregor Keerles</h1>
-    <p>Ma olen õpilane Tallinna Ülikoolis, informaatika erialal.</p>
-    <h2>Linkide list</h2>
+    <h2><%= heading %></h2>
     <ul>
-        <li><a href="/timenow">Ajainfo</a></li>
-        <li><a href="/vanasonad">Vanasõnad</a></li>
-        <li><a href="/reqvisit">Külalisraamat</a></li>
+        <li><a href="/">Tagasi</a></li>
     </ul>
+    <ol>
+    <% listData.forEach(item => { %>
+        <li><%= item %></li>
+    <% }); %>
+    </ol>
 </body>
 </html>
