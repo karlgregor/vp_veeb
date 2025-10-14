@@ -169,28 +169,31 @@ app.get("/eestifilm/inimesed_add", (req, res)=>{
 	res.render("filmiinimesed_add", {notice: "Ootan sisestust!"});
 });
 
-app.post("/eestifilm/inimesed_add", (req, res)=>{
-	console.log(req.body);
-	//kas andmed on olemas?
+app.post("/eestifilm/inimesed_add", async (req, res)=>{
+	let conn;
+  let sqlReq = "INSERT INTO person (first_name, last_name, born, deceased) VALUES (?,?,?,?)";
+
 	if(!req.body.firstNameInput || !req.body.lastNameInput || !req.body.bornInput || req.body.bornInput > new Date()){
 		res.render("filmiinimesed_add", {notice: "Andmed on vigased! Vaata üle!"});
-	}
-	else {
-		let deceasedDate = null;
-		if(req.body.deceasedInput != ""){
-			deceasedDate = req.body.deceasedInput;
-		}
-		let sqlReq = "INSERT INTO person (first_name, last_name, born, deceased) VALUES (?,?,?,?)";
-		conn.execute(sqlReq, [req.body.firstNameInput, req.body.lastNameInput, req.body.bornInput, deceasedDate], (err, sqlRes)=>{
-			if(err){
-				res.render("filmiinimesed_add", {notice: "Tekkis tehniline viga:" + err});
-			}
-			else {
-				res.render("filmiinimesed_add", {notice: "Andmed on salvestatud!"});
-			}
-		});
-	}
-	//res.render("filmiinimesed_add", {notice: "Andmed olemas! " + req.body});
+    return;
+	} else {
+    try {
+      conn = await mysql.createConnection(dbInfo);
+      console.log("DB connection established")
+      let deceasedDate = null;
+      if(req.body.deceasedInput != ""){
+        deceasedDate = req.body.deceasedInput;
+      }
+      const [result] = await conn.execute(sqlReq, [req.body.firstNameInput, req.body.lastNameInput, req.body.bornInput, deceasedDate]);
+      console.log("Result ID: " + result.insertId + " salvestatud!");
+      res.render("filmiinimesed_add", {notice: "Andmed on salvestatud!"});
+    } catch (err) {
+      console.log(err);
+      res.render("filmiinimesed_add", {notice: "Tekkis tehniline viga:" + err});
+    } finally {
+      if (conn) conn.end();
+    }
+  }
 });
 
 app.listen(port, () => {
