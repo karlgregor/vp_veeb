@@ -98,7 +98,7 @@ const filmJobsAddPage = async (req, res) => {
 
 const filmJobsAddPost = async (req, res)=>{
     let conn;
-    let sqlReq = "INSERT INTO position (position_name, description) VALUES (?,?)";
+    let sqlReq = "INSERT INTO 'position' (position_name, description) VALUES (?,?)";
 	console.log(req.body);
 	//kas andmed on olemas?
 	if (!req.body.positionNameInput){
