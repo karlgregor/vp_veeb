@@ -2,8 +2,16 @@ const express = require('express')
 const app = express()
 const port = 5221
 
-const mysql = require('mysql2')
+const mysql = require('mysql2/promise')
 const dbInfo = require('./dbInfo')
+
+//loon andmebaasiühenduse
+const conn = mysql.createConnection({
+	host: dbInfo.host,
+	user: dbInfo.user,
+	password: dbInfo.password,
+	database: dbInfo.database
+});
 
 const dateEt = require('./src/dateTimeET')
 const fs = require('fs')
@@ -125,7 +133,7 @@ app.get("/eestifilm", (req, res)=>{
 	res.render("eestifilm");
 });
 
-app.get("/eestifilm/inimesed", (req, res)=>{
+/* app.get("/eestifilm/inimesed", (req, res)=>{
 	const sqlReq = "SELECT * FROM person";
 	conn.execute(sqlReq, (err, sqlRes)=>{
 		if(err){
@@ -139,6 +147,22 @@ app.get("/eestifilm/inimesed", (req, res)=>{
 		
 	});
 	//res.render("filmiinimesed");
+}); */
+
+app.get("/eestifilm/inimesed", async (req, res)=>{
+  let conn;
+  const sqlReq = "SELECT * FROM person";
+  try {
+    conn = await mysql.createConnection(dbInfo);
+    console.log("DB connection established")
+    const [rows, fields] = await conn.execute(sqlReq);
+    res.render("Filmiinimesed", {personList: rows})
+  } catch (err) {
+    console.log(err);
+    res.render("filmiinimesed", {personList: []});
+  } finally {
+    if (conn) conn.end();
+  }
 });
 
 app.get("/eestifilm/inimesed_add", (req, res)=>{
