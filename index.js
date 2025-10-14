@@ -156,7 +156,7 @@ app.get("/eestifilm/inimesed", async (req, res)=>{
     conn = await mysql.createConnection(dbInfo);
     console.log("DB connection established")
     const [rows, fields] = await conn.execute(sqlReq);
-    res.render("Filmiinimesed", {personList: rows})
+    res.render("filmiinimesed", {personList: rows})
   } catch (err) {
     console.log(err);
     res.render("filmiinimesed", {personList: []});
