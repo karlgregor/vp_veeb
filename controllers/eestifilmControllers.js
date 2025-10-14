@@ -80,8 +80,5 @@ module.exports = {
     filmHomePage,
     filmPeoplePage,
     filmPeopleAddPage,
-    filmPeopleAddPost,
-    filmJobsPage,
-    filmJobsAddPage,
-    filmJobsPost
+    filmPeopleAddPost
 }
