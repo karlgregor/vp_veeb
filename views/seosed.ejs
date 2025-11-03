@@ -77,9 +77,9 @@
     </ul>
     <h2>Inimesete + filmide + ametide seosed</h2>
     <ul><% relations.forEach(function(listItem){ %>
-      <li><%= listItem.first_name %> <%= listItem.last_name %> | <%= listItem.film_title %> | <%= listItem.position_name %> | <%= listItem.role %></li>
+      <li><%= listItem.first_name %> <%= listItem.last_name %> | <%= listItem.movie_title %> | <%= listItem.position_name %> | <%= listItem.role %></li>
       <% }); %>
     </ul>
-    <p><%= notice %></p>
+    <p><%= notice %></p>            
 </body>
 </html>
