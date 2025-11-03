@@ -165,7 +165,7 @@ const filmAddPagePost = async (req, res)=>{
   let sqlReq = "INSERT INTO movie (title, year, description) VALUES (?, ?, ?)";
   try{
       if(!req.body.titleInput){
-          res.render("filmi_add", {notice: "Palun sisesta filmi pealkiri!"});
+          res.render("film_add", {notice: "Palun sisesta filmi pealkiri!"});
           return;
       }
       conn = await mysql.createConnection(dbInfo);
@@ -177,7 +177,7 @@ const filmAddPagePost = async (req, res)=>{
   catch(err){
       console.log(err);
       if(conn) await conn.end();
-      res.render("filmi_add", {notice: "Tekkis tehniline viga:" + err});
+      res.render("film_add", {notice: "Tekkis tehniline viga:" + err});
   }
 };
 
