@@ -40,7 +40,10 @@ app.get('/vanasonad', (req, res) => {
 })
 
 app.use('/eestifilm', eestifilmRoutes)
-app.use('/regvisit', visitRoutes)
+
+app.use("/visits", visitRoutes);
+app.get("/regvisit", (req, res) => res.redirect("/visits/"));
+app.get("/regvisitlog", (req, res) => res.redirect("/visits/log"));
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

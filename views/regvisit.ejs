@@ -160,19 +160,18 @@
         <div class="message error"><%= error %></div>
     <% } %>
     
-    <form action="/reqvisit" method="post">
-        <label for="name">Nimi:</label>
-        <input type="text" id="name" name="name" value="<%= typeof name !== 'undefined' ? name : '' %>" required>
-        
-        <label for="message">Sõnum:</label>
-        <textarea id="message" name="message" placeholder="Kirjuta oma sõnum siia..." required><%= typeof message !== 'undefined' ? message : '' %></textarea>
+    <form action="/regvisit" method="post">
+        <label for="firstNameInput">Eesnimi:</label>
+        <input type="text" id="firstNameInput" name="firstNameInput" value="<%= typeof firstNameInput !== 'undefined' ? firstNameInput : '' %>" required>
+        <label for="lastNameInput">Perekonnanimi:</label>
+        <input type="text" id="lastNameInput" name="lastNameInput" value="<%= typeof lastNameInput !== 'undefined' ? lastNameInput : '' %>" required>
         
         <button type="submit">Saada</button>
     </form>
-    <% if (typeof reqvisitList !== 'undefined' && reqvisitList.length > 0) { %>
+    <% if (typeof regvisitList !== 'undefined' && regvisitList.length > 0) { %>
         <h2>Registreeritud külastused</h2>
         <ol>
-            <% reqvisitList.forEach(item => { %>
+            <% regvisitList.forEach(item => { %>
                 <li><%= item %></li>
             <% }); %>
         </ol>
