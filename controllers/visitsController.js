@@ -14,7 +14,7 @@ const visitRegisterPagePost = (req, res) => {
       if (err) return res.status(500).send("Faili avamisel viga");
       fs.appendFile(visitLogFile, line, (err) => {
         if (err) return res.status(500).send("Faili kirjutamisel viga");
-        res.redirect("/regvisit");
+        res.redirect("/visits/log");
       });
     });
 };

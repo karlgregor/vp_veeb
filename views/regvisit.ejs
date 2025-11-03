@@ -160,7 +160,7 @@
         <div class="message error"><%= error %></div>
     <% } %>
     
-    <form action="/regvisit" method="post">
+    <form action="/visits/" method="post">
         <label for="firstNameInput">Eesnimi:</label>
         <input type="text" id="firstNameInput" name="firstNameInput" value="<%= typeof firstNameInput !== 'undefined' ? firstNameInput : '' %>" required>
         <label for="lastNameInput">Perekonnanimi:</label>
