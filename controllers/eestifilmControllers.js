@@ -162,7 +162,7 @@ const filmAddPage = (req, res)=>{
 
 const filmAddPagePost = async (req, res)=>{
   let conn;
-  let sqlReq = "INSERT INTO movie (title, year, description) VALUES (?, ?, ?)";
+  let sqlReq = "INSERT INTO movie (title, production_year, description) VALUES (?, ?, ?)";
   try{
       if(!req.body.titleInput){
           res.render("film_add", {notice: "Palun sisesta filmi pealkiri!"});
