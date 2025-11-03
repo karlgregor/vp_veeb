@@ -80,6 +80,8 @@
       <li><%= listItem.first_name %> <%= listItem.last_name %> | <%= listItem.movie_title %> | <%= listItem.position_name %> | <%= listItem.role %></li>
       <% }); %>
     </ul>
-    <p><%= notice %></p>            
+    <% if (typeof notice !== 'undefined' && notice) { %>
+    <p><%= notice %></p>
+    <% } %>            
 </body>
 </html>
