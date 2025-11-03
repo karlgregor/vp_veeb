@@ -15,4 +15,31 @@ const timeNowFormattedET = function(){
 	return timeNow.getHours() + ":" + timeNow.getMinutes() + ":" + timeNow.getSeconds();
 }
 
-module.exports = {longDate: dateFormattedET, weekDay: weekDayET, time: timeNowFormattedET};
+const longDate = function(){
+	const now = new Date();
+	const monthNamesET = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
+	return now.getDate() + ". " + monthNamesET[now.getMonth()] + " " + now.getFullYear();
+}
+
+const weekday = function(){
+	const now = new Date();
+	const weekdayNamesEt = ["pühapäev", "esmaspäev", "teisipäev", "kolmapäev", "neljapäev", "reede", "laupäev"];
+	return weekdayNamesEt[now.getDay()];
+}
+
+const time = function(){
+	const now = new Date();
+	const hours = String(now.getHours()).padStart(2, "0");
+	const minutes = String(now.getMinutes()).padStart(2, "0");
+	const seconds = String(now.getSeconds()).padStart(2, "0");
+	return `${hours}:${minutes}:${seconds}`;
+}
+
+const formatDBDate = function(dateFromDB){
+	if (!dateFromDB) return "";
+	const givenDate = new Date(dateFromDB);
+	const monthNamesET = ["jaanuar", "veebruar", "märts", "aprill", "mai", "juuni", "juuli", "august", "september", "oktoober", "november", "detsember"];
+	return givenDate.getDate() + ". " + monthNamesET[givenDate.getMonth()] + " " + givenDate.getFullYear();
+}
+
+module.exports = {dateFormattedET, weekDayET, timeNowFormattedET, longDate, weekday, time, formatDBDate};

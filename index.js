@@ -5,7 +5,9 @@ const app = express()
 const port = 5221
 
 const dateEt = require('./src/dateTimeET')
+
 const eestifilmRoutes = require('./routes/eestifilmRoutes')
+const visitRoutes = require('./routes/visitRoutes')
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -16,7 +18,6 @@ app.get('/', (req, res) => {
   res.render('index')
 })
 
-app.use('/eestifilm', eestifilmRoutes)
 
 app.get('/timenow', (req, res) => {
   res.render('timenow', { 
@@ -38,76 +39,8 @@ app.get('/vanasonad', (req, res) => {
   })
 })
 
-app.get('/reqvisit', (req, res) => {
-  fs.readFile('public/txt/reqvisit.txt', 'utf8', (err, data) => {
-    if (err) {
-      res.render('reqvisit', { reqvisitList: [] })
-    } else {
-      const splitter = data.split('\n')
-      const reqvisitList = splitter.map(item => item.trim()).filter(item => item.length > 0)
-      res.render('reqvisit', { reqvisitList })
-    }
-  })
-})
-
-app.post('/reqvisit', (req, res) => {
-  const { name, message } = req.body
-  
-  if (!name || !message) {
-    fs.readFile('public/txt/reqvisit.txt', 'utf8', (err, data) => {
-      if (err) {
-        return res.render('reqvisit', { 
-          error: 'Palun täida kõik väljad',
-          name: name || '',
-          message: message || '',
-          reqvisitList: []
-        })
-      } else {
-        const splitter = data.split('\n')
-        const reqvisitList = splitter.map(item => item.trim()).filter(item => item.length > 0)
-        return res.render('reqvisit', { 
-          error: 'Palun täida kõik väljad',
-          name: name || '',
-          message: message || '',
-          reqvisitList
-        })
-      }
-    })
-    return
-  }
-  
-  fs.appendFile('public/txt/reqvisit.txt', `${name}: ${message}\n`, (err) => {
-    if (err) {
-      console.error('Error writing to file:', err)
-      return res.render('reqvisit', { 
-        error: 'Viga faili kirjutamisel',
-        name: name || '',
-        message: message || '',
-        reqvisitList: []
-      })
-    }
-    
-    fs.readFile('public/txt/reqvisit.txt', 'utf8', (readErr, data) => {
-      if (readErr) {
-        res.render('reqvisit', { 
-          success: 'Täname! Teie külastuse taotlus on saadetud.',
-          name: '',
-          message: '',
-          reqvisitList: []
-        })
-      } else {
-        const splitter = data.split('\n')
-        const reqvisitList = splitter.map(item => item.trim()).filter(item => item.length > 0)
-        res.render('reqvisit', { 
-          success: 'Täname! Teie külastuse taotlus on saadetud.',
-          name: '',
-          message: '',
-          reqvisitList
-        })
-      }
-    })
-  })
-})
+app.use('/eestifilm', eestifilmRoutes)
+app.use('/regvisit', visitRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
