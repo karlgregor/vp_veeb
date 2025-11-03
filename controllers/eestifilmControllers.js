@@ -162,7 +162,7 @@ const filmAddPage = (req, res)=>{
 
 const filmAddPagePost = async (req, res)=>{
   let conn;
-  let sqlReq = "INSERT INTO movie (title, production_year, description) VALUES (?, ?, ?)";
+  let sqlReq = "INSERT INTO movie (title, production_year, duration, description) VALUES (?, ?, ?, ?)";
   try{
       if(!req.body.titleInput){
           res.render("film_add", {notice: "Palun sisesta filmi pealkiri!"});
@@ -170,7 +170,7 @@ const filmAddPagePost = async (req, res)=>{
       }
       conn = await mysql.createConnection(dbInfo);
       console.log("DB connection established");
-      await conn.execute(sqlReq, [req.body.titleInput, req.body.yearInput || null, req.body.descriptionInput || null]);
+      await conn.execute(sqlReq, [req.body.titleInput, req.body.yearInput || null, req.body.durationInput || null, req.body.descriptionInput || null]);
       await conn.end();
       res.redirect("/eestifilm");
   }
