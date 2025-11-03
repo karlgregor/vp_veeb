@@ -216,7 +216,7 @@ const seosAddPagePost = async (req, res) => {
     }
 
     conn = await mysql.createConnection(dbInfo);
-    const sql = "INSERT INTO person_film_position (person_id, film_id, position_id, role) VALUES (?, ?, ?, ?)";
+    const sql = "INSERT INTO person_in_movie (person_id, movie_id, position_id, role) VALUES (?, ?, ?, ?)";
     await conn.execute(sql, [personId, filmId, positionId, role]);
     await conn.end();
     res.redirect("/eestifilm/seosed");
@@ -231,7 +231,7 @@ const seosedList = async (req, res) => {
   let conn;
   try {
     conn = await mysql.createConnection(dbInfo);
-    const sql = "SELECT p.id AS person_id, p.first_name, p.last_name, f.title AS movie_title, pos.position_name, rel.role FROM person_film_position rel JOIN person p ON p.id = rel.person_id JOIN movie f ON f.id = rel.movie_id JOIN position pos ON pos.id = rel.position_id ORDER BY p.last_name, p.first_name, f.title";
+    const sql = "SELECT p.id AS person_id, p.first_name, p.last_name, f.title AS movie_title, pos.position_name, rel.role FROM person_in_movie rel JOIN person p ON p.id = rel.person_id JOIN movie f ON f.id = rel.movie_id JOIN position pos ON pos.id = rel.position_id ORDER BY p.last_name, p.first_name, f.title";
     const [rows] = await conn.execute(sql);
     await conn.end();
     res.render("seosed", { relations: rows });
