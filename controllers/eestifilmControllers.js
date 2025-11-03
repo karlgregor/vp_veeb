@@ -162,7 +162,7 @@ const filmAddPage = (req, res)=>{
 
 const filmAddPagePost = async (req, res)=>{
   let conn;
-  let sqlReq = "INSERT INTO film (title, year, description) VALUES (?, ?, ?)";
+  let sqlReq = "INSERT INTO movie (title, year, description) VALUES (?, ?, ?)";
   try{
       if(!req.body.titleInput){
           res.render("filmi_add", {notice: "Palun sisesta filmi pealkiri!"});
@@ -186,7 +186,7 @@ const seosAddPage = async (req, res) => {
   try {
     conn = await mysql.createConnection(dbInfo);
     const [people] = await conn.execute("SELECT id, first_name, last_name FROM person ORDER BY last_name, first_name");
-    const [films] = await conn.execute("SELECT id, title FROM film ORDER BY title");
+    const [films] = await conn.execute("SELECT id, title FROM movie ORDER BY title");
     const [positions] = await conn.execute("SELECT id, position_name FROM position ORDER BY position_name");
     await conn.end();
     res.render("seos_add", { people: people, films: films, positions: positions, notice: "" });
@@ -208,7 +208,7 @@ const seosAddPagePost = async (req, res) => {
     if (!(personId && filmId && positionId)) {
       conn = await mysql.createConnection(dbInfo);
       const [people] = await conn.execute("SELECT id, first_name, last_name FROM person ORDER BY last_name, first_name");
-      const [films] = await conn.execute("SELECT id, title FROM film ORDER BY title");
+      const [films] = await conn.execute("SELECT id, title FROM movie ORDER BY title");
       const [positions] = await conn.execute("SELECT id, position_name FROM position ORDER BY position_name");
       await conn.end();
       res.render("seos_add", { people, films, positions, notice: "Palun vali isik, film ja amet." });
@@ -231,7 +231,7 @@ const seosedList = async (req, res) => {
   let conn;
   try {
     conn = await mysql.createConnection(dbInfo);
-    const sql = "SELECT p.id AS person_id, p.first_name, p.last_name, f.title AS film_title, pos.position_name, rel.role FROM person_film_position rel JOIN person p ON p.id = rel.person_id JOIN film f ON f.id = rel.film_id JOIN position pos ON pos.id = rel.position_id ORDER BY p.last_name, p.first_name, f.title";
+    const sql = "SELECT p.id AS person_id, p.first_name, p.last_name, f.title AS movie_title, pos.position_name, rel.role FROM person_film_position rel JOIN person p ON p.id = rel.person_id JOIN movie f ON f.id = rel.movie_id JOIN position pos ON pos.id = rel.position_id ORDER BY p.last_name, p.first_name, f.title";
     const [rows] = await conn.execute(sql);
     await conn.end();
     res.render("seosed", { relations: rows });
