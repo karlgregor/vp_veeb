@@ -1,1 +1,0 @@
-CREATE TABLE `if25_karlgregor_keerles`.`photogallery` (`id` INT(11) NOT NULL AUTO_INCREMENT , `filename` VARCHAR(140) NOT NULL , `origname` VARCHAR(140) NOT NULL , `privacy` INT(1) NOT NULL , `alttext` VARCHAR(256) NULL , `userid` INT(11) NOT NULL , `added` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP , `deleted` DATETIME NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
