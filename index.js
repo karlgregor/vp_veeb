@@ -6,8 +6,9 @@ const port = 5221
 
 const dateEt = require('./src/dateTimeET')
 
-const eestifilmRoutes = require('./routes/eestifilmRoutes')
 const visitRoutes = require('./routes/visitRoutes')
+const eestifilmRoutes = require('./routes/eestifilmRoutes')
+const galleryPhotoUploadRoutes = require('./routes/galleryPhotoUploadRoutes')
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -44,6 +45,8 @@ app.use('/eestifilm', eestifilmRoutes)
 app.use("/visits", visitRoutes);
 app.get("/regvisit", (req, res) => res.redirect("/visits/"));
 app.get("/regvisitlog", (req, res) => res.redirect("/visits/log"));
+
+app.use("/galleryphotoupload", galleryPhotoUploadRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
