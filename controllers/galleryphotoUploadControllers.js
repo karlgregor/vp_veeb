@@ -17,16 +17,26 @@ const galleryphotoUploadPage = (req, res) => {
 
 const galleryphotoUploadPagePost = async (req, res)=>{
     let conn;
-    let sqlReq = "INSERT INTO photogallery (id, filename, origname, privacy, alttext, userid, added, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    let sqlReq = "INSERT INTO photogallery_id (filename, origname, alttext, privacy, userid) VALUES (?, ?, ?, ?, ?)";
     console.log(req.body);
     console.log(req.file);
     try {
-        const fileName = "vp_" + Date.now() + "_" + req.file.originalname + ".jpg";
+        const fileName = "vp_" + Date.now() + ".jpg";
         console.log(fileName);
+
         await fs.rename(req.file.path, req.file.destination + fileName);
+
         await sharp(req.file.destination + fileName).resize(800, 600).jpeg({quality: 80}).toFile("./public/gallery/normal/" + fileName);
         await sharp(req.file.destination + fileName).resize(100, 100).jpeg({quality: 80}).toFile("./public/gallery/thumbs/" + fileName);
-        await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.privacyInput, req.body.altInput, 1, new Date(), 0]);
+
+        const userid = 1;
+
+        conn = await mysql.createConnection(dbInfo);
+        console.log("DB connection established");
+
+        const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.privacyInput, req.body.altInput, userid]);
+
+        console.log("Result ID: " + result.insertId + " salvestatud!");
         res.render("galleryupload", {notice: "Andmed on salvestatud!"});
     } catch(err) {
         console.log(err);
