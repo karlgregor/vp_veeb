@@ -16,6 +16,7 @@ const galleryphotoUploadPage = (req, res) => {
 const galleryphotoUploadPagePost = async (req, res)=>{
     let conn;
     let sqlReq = "INSERT INTO photogallery (id, filename, origname, privacy, alttext, userid, added, deleted) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    console.log(req.body);
     res.render("galleryupload");
 }
 
