@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karl-Gregor's Website</title>
-    <script src="/src/dateTimeET.js"></script>
     <style>
         * {
             margin: 0;
@@ -79,6 +78,25 @@
             margin-bottom: 5px;
             color: #333;
             font-weight: bold;
+        }
+
+        input {
+            appearance: none;
+
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+
+            border: 2px solid #999999;
+            transition: 0.2s all linear;
+            margin-right: 5px;
+
+            position: relative;
+            top: 4px;
+        }
+
+        input:checked {
+            border: 6px solid black;
         }
         
         input[type="text"], textarea {
