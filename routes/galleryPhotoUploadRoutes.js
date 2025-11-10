@@ -3,7 +3,6 @@ const router = express.Router();
 const multer = require("multer")
 
 const uploader = multer({ dest: "./public/gallery/orig/" });
-const upload = uploader.single("photoInput");
 
 // controllers
 const {
@@ -13,6 +12,6 @@ const {
 
 // routes
 router.route("/").get(galleryphotoUploadPage);
-router.route("/").post(upload, galleryphotoUploadPagePost);
+router.route("/").post(uploader.single("photoInput"), galleryphotoUploadPagePost);
 
 module.exports = router;
