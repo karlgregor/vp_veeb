@@ -2,6 +2,9 @@ const mysql = require('mysql2/promise')
 const fs = require("fs").promises;
 const sharp = require("sharp");
 const dbInfo = require('../dbInfo')
+const fs = require("fs").promises;
+
+console.log("Exists:", await fs.exists("./public/images/test.png"));
 
 //loon andmebaasiühenduse
 const dbConfig = {
@@ -26,8 +29,8 @@ const galleryphotoUploadPagePost = async (req, res) => {
 
         await fs.rename(req.file.path, req.file.destination + fileName);
 
-        await sharp(req.file.destination + fileName).resize(800, 600).jpeg({quality: 80}).composite([{input: "./public/images/test.png", gravity: 'southeast'}]).toFile("./public/gallery/normal/" + fileName);
-        await sharp(req.file.destination + fileName).resize(100, 100).jpeg({quality: 80}).composite([{input: "./public/images/test.png", gravity: 'southeast'}]).toFile("./public/gallery/thumbs/" + fileName);
+        await sharp(req.file.destination + fileName).resize(800, 600).jpeg({quality: 80}).composite([{input: await fs.readFile("./public/images/test.png"), gravity: 'southeast'}]).toFile("./public/gallery/normal/" + fileName);
+        await sharp(req.file.destination + fileName).resize(100, 100).jpeg({quality: 80}).composite([{input: await fs.readFile("./public/images/test.png"), gravity: 'southeast'}]).toFile("./public/gallery/thumbs/" + fileName);
 
         let sqlReq = "INSERT INTO photogallery (filename, origname, alttext, privacy, userid) VALUES(?,?,?,?,?)";
 
