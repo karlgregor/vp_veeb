@@ -3,8 +3,6 @@ const fs = require("fs").promises;
 const sharp = require("sharp");
 const dbInfo = require('../dbInfo')
 
-console.log("Exists:", await fs.exists("./public/images/test.png"));
-
 //loon andmebaasiühenduse
 const dbConfig = {
 	host: dbInfo.host,
