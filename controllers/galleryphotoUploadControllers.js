@@ -4,18 +4,19 @@ const sharp = require("sharp");
 const dbInfo = require('../dbInfo')
 
 //loon andmebaasiühenduse
-const conn = mysql.createConnection({
+const dbConfig = {
 	host: dbInfo.host,
 	user: dbInfo.user,
 	password: dbInfo.password,
 	database: dbInfo.database
-});
+};
 
 const galleryphotoUploadPage = (req, res) => {
     res.render("galleryupload");
 }
 
-const galleryphotoUploadPagePost = async (req, res)=>{
+const galleryphotoUploadPagePost = async (req, res) => {
+    let conn;
     console.log(req.body);
     console.log(req.file);
 
@@ -32,7 +33,7 @@ const galleryphotoUploadPagePost = async (req, res)=>{
 
         const userid = 1;
 
-        conn = await mysql.createConnection(dbInfo);
+        conn = await mysql.createConnection(dbConfig);
         console.log("DB connection established");
 
         const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userid])
