@@ -4,18 +4,18 @@ const sharp = require("sharp");
 const dbInfo = require('../dbInfo')
 
 //loon andmebaasiühenduse
-const conn = mysql.createConnection({
+const dbConfig = {
 	host: dbInfo.host,
 	user: dbInfo.user,
 	password: dbInfo.password,
 	database: dbInfo.database
-});
+};
 
 const indexPage = async (req, res) => {
     let conn;
-    let sqlReq = "SELECT * FROM photogallery_id WHERE privacy = 3 ORDER BY id DESC LIMIT 1";
+    let sqlReq = "SELECT * FROM `photogallery` WHERE `privacy` = 3 ORDER BY `id` DESC LIMIT 1";
     try {
-        conn = await mysql.createConnection(dbInfo);
+        conn = await mysql.createConnection(dbConfig);
         const [result] = await conn.execute(sqlReq);
         res.render("index", { photo: result });
     } catch(err) {
