@@ -34,7 +34,7 @@ const galleryphotoUploadPagePost = async (req, res)=>{
         conn = await mysql.createConnection(dbInfo);
         console.log("DB connection established");
 
-        const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.privacyInput, req.body.altInput, userid]);
+        const [result] = await conn.execute(sqlReq, [fileName, req.file.originalname, req.body.altInput, req.body.privacyInput, userid]);
 
         console.log("Result ID: " + result.insertId + " salvestatud!");
         res.render("galleryupload", {notice: "Andmed on salvestatud!"});
