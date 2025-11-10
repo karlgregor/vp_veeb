@@ -9,16 +9,14 @@ const dateEt = require('./src/dateTimeET')
 const visitRoutes = require('./routes/visitRoutes')
 const eestifilmRoutes = require('./routes/eestifilmRoutes')
 const galleryPhotoUploadRoutes = require('./routes/galleryPhotoUploadRoutes')
+const indexRoutes = require('./routes/indexRoutes')
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
-  res.render('index')
-})
-
+app.use('/', indexRoutes)
 
 app.get('/timenow', (req, res) => {
   res.render('timenow', { 

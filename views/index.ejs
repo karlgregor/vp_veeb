@@ -77,5 +77,18 @@
         <li><a href="/eestifilm">Eesti filmid</a></li>
         <li><a href="/galleryphotoupload">Pildi üleslaadima</a></li>
     </ul>
+    <% if (photo.length > 0) { %>
+    <img src="/gallery/normal/<%= photo[0].filename %>" alt="Viimati üleslaetud avalik pilt">
+    <p><%= photo[0].alttext %></p>
+    <p><%= photo[0].privacy %></p>
+    <p><%= photo[0].userid %></p>
+    <p><%= photo[0].filename %></p>
+    <p><%= photo[0].origname %></p>
+    <p><%= photo[0].alttext %></p>
+    <p><%= photo[0].privacy %></p>
+    <p><%= photo[0].userid %></p>
+    <% } else { %>
+    <p>Ei ole ühtegi avaliku pilti</p>
+    <% } %>
 </body>
 </html>
