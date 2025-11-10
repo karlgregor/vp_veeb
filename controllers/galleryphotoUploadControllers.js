@@ -2,7 +2,6 @@ const mysql = require('mysql2/promise')
 const fs = require("fs").promises;
 const sharp = require("sharp");
 const dbInfo = require('../dbInfo')
-const fs = require("fs").promises;
 
 console.log("Exists:", await fs.exists("./public/images/test.png"));
 
