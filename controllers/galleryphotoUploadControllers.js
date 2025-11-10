@@ -29,7 +29,7 @@ const galleryphotoUploadPagePost = async (req, res)=>{
         await sharp(req.file.destination + fileName).resize(800, 600).jpeg({quality: 80}).toFile("./public/gallery/normal/" + fileName);
         await sharp(req.file.destination + fileName).resize(100, 100).jpeg({quality: 80}).toFile("./public/gallery/thumbs/" + fileName);
 
-        let sqlReq = "INSERT INTO galleryphotos_id (filename, origname, alttext, privacy, userid) VALUES(?,?,?,?,?)";
+        let sqlReq = "INSERT INTO photogallery (filename, origname, alttext, privacy, userid) VALUES(?,?,?,?,?)";
 
         const userid = 1;
 
