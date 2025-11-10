@@ -26,8 +26,10 @@ const galleryphotoUploadPagePost = async (req, res) => {
 
         await fs.rename(req.file.path, req.file.destination + fileName);
 
-        await sharp(req.file.destination + fileName).resize(800, 600).jpeg({quality: 80}).composite([{input: await fs.readFile("./public/images/test.png"), gravity: 'southeast'}]).toFile("./public/gallery/normal/" + fileName);
-        await sharp(req.file.destination + fileName).resize(100, 100).jpeg({quality: 80}).composite([{input: await fs.readFile("./public/images/test.png"), gravity: 'southeast'}]).toFile("./public/gallery/thumbs/" + fileName);
+        beforeImageBuffer = await sharp(req.file.destination + fileName).composite([{input: "./public/images/test.png", gravity: 'southeast'}]).toBuffer();
+
+        await sharp(beforeImageBuffer).resize(800, 600).jpeg({quality: 80}).toFile("./public/gallery/normal/" + fileName);
+        await sharp(beforeImageBuffer).resize(100, 100).jpeg({quality: 80}).toFile("./public/gallery/thumbs/" + fileName);
 
         let sqlReq = "INSERT INTO photogallery (filename, origname, alttext, privacy, userid) VALUES(?,?,?,?,?)";
 
