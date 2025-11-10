@@ -16,7 +16,6 @@ const galleryphotoUploadPage = (req, res) => {
 }
 
 const galleryphotoUploadPagePost = async (req, res)=>{
-    let conn;
     console.log(req.body);
     console.log(req.file);
 
