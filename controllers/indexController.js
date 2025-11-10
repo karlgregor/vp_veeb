@@ -11,30 +11,21 @@ const conn = mysql.createConnection({
 	database: dbInfo.database
 });
 
-const indexPage = (req, res) => {
-    res.render("index");
-}
-
-const indexPageGetLatestPublicPhoto = async (req, res)=>{
+const indexPage = async (req, res) => {
     let conn;
     let sqlReq = "SELECT * FROM photogallery_id WHERE privacy = 3 ORDER BY id DESC LIMIT 1";
     try {
         conn = await mysql.createConnection(dbInfo);
-        console.log("DB connection established");
-
         const [result] = await conn.execute(sqlReq);
-
-        console.log("Result: " + result);
-        res.render("index", {photo: result});
+        res.render("index", { photo: result });
     } catch(err) {
         console.log(err);
-        res.render("index", {photo: []});
+        res.render("index", { photo: [] });
     } finally {
         if (conn) await conn.end();
     }
-}
+};
 
 module.exports = {
-    indexPage,
-    indexPageGetLatestPublicPhoto
+    indexPage
 }

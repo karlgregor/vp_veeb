@@ -1,14 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { indexPage } = require("../controllers/indexController");
 
-//controllers
-const {
-    indexPage,
-    indexPageGetLatestPublicPhoto
-} = require("../controllers/indexController");
-
-//routes
-router.route("/").get(indexPage);
-router.route("/").get(indexPageGetLatestPublicPhoto);
+router.get("/", indexPage);
 
 module.exports = router;
