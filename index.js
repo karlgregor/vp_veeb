@@ -10,6 +10,7 @@ const visitRoutes = require('./routes/visitRoutes')
 const eestifilmRoutes = require('./routes/eestifilmRoutes')
 const galleryPhotoUploadRoutes = require('./routes/galleryPhotoUploadRoutes')
 const indexRoutes = require('./routes/indexRoutes')
+const photogalleryRouter = require("./routes/photogalleryRoutes");
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -45,6 +46,8 @@ app.get("/regvisit", (req, res) => res.redirect("/visits/"));
 app.get("/regvisitlog", (req, res) => res.redirect("/visits/log"));
 
 app.use("/galleryphotoupload", galleryPhotoUploadRoutes)
+
+app.use("/photogallery", photogalleryRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
