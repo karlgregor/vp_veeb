@@ -178,6 +178,8 @@
         <br>
         <input type="submit" id="newsSubmit" name="newsSubmit" value="Salvesta">
     </form>
-    <p><%= notice %></p>
+    <% if (typeof notice !== 'undefined' && notice) { %>
+        <p class="message <%= notice.includes('viga') || notice.includes('Viga') ? 'error' : 'success' %>"><%= notice %></p>
+    <% } %>
 </body>
 </html>
