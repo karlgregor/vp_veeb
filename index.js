@@ -25,6 +25,8 @@ const photogalleryRouter = require("./routes/photogalleryRoutes");
 const newsRoutes = require("./routes/newsRoutes");
 const signUpRoutes = require("./routes/signUpRoutes");
 const signInRoutes = require("./routes/signInRoutes");
+const homeRoutes = require("./routes/homeRoutes");
+
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -32,11 +34,6 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/', indexRoutes)
-
-app.get("/home", (req, res) => {
-  console.log("Sisse logis kasutaja id: " + req.session.userId)
-  res.render("home")
-})
 
 app.get('/timenow', (req, res) => {
   res.render('timenow', { 
@@ -74,7 +71,7 @@ app.use("/signup", signUpRoutes);
 
 app.use("/signin", signInRoutes);
 
-app.use("/home", signInRoutes)
+app.use("/home", homeRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
