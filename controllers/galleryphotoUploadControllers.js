@@ -33,7 +33,7 @@ const galleryphotoUploadPagePost = async (req, res) => {
 
         let sqlReq = "INSERT INTO photogallery (filename, origname, alttext, privacy, userid) VALUES(?,?,?,?,?)";
 
-        const userid = 1;
+        const userid = req.session.userId;
 
         conn = await mysql.createConnection(dbConfig);
         console.log("DB connection established");
