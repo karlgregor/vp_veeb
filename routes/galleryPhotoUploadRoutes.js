@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer")
-const loginCheck = require("../src/checkLogin");
+const loginCheck = require("../src/loginMiddleware");
 
 const uploader = multer({ dest: "./public/gallery/orig/" });
 
