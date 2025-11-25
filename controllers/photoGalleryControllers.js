@@ -48,12 +48,13 @@ const photogalleryPersonalHome = async (req, res)=>{
 
         const userid = req.session.userId;
 
-        let sqlReq = "SELECT filename, alttext FROM photogallery WHERE userid = ? AND deleted IS NULL";
+        let sqlReq = "SELECT id, filename, alttext FROM photogallery WHERE userid = ? AND deleted IS NULL";
         const [rows] = await conn.execute(sqlReq, [userid]);
 
         console.log(rows);
 
         let galleryData = rows.map(r => ({
+			id: r.id,
             src: r.filename,
             alt: r.alttext && r.alttext !== "" ? r.alttext : "Galeriipilt"
         }));
