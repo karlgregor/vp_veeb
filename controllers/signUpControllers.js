@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise')
 const dbInfo = require('../dbInfo')
+const argon2 = require('argon2');
 
 //loon andmebaasiühenduse
 const dbConfig = {
