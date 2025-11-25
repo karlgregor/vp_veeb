@@ -43,6 +43,8 @@ const signInPagePost = async (req, res) => {
 	  } else {
 		req.session.userId = user.id;
 		req.session.userEmail = user.email;
+		req.session.firstName = user.first_name;
+		req.session.lastName = user.last_name;
 		console.log("Login OK:", user.email);
 		return res.redirect("/home");
 	  }

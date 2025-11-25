@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer")
+const loginCheck = require("../src/checkLogin");
 
 const uploader = multer({ dest: "./public/gallery/orig/" });
+
+router.use(loginCheck.isLogin);
 
 // controllers
 const {
