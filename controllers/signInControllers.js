@@ -17,7 +17,6 @@ const signInPage = (req, res) => {
 const signInPagePost = async (req, res) => {
 	let conn;
   
-	// Validate input
 	if (
 	  !req.body.emailInput ||
 	  !req.body.passwordInput
@@ -44,7 +43,7 @@ const signInPagePost = async (req, res) => {
 	  }
   
 	  console.log("Login OK:", user.email);
-	  res.render("signin", { notice: "Sisselogimine õnnestus!" });
+	  res.redirect("/home");
   
 	} catch (err) {
 	  console.log(err);
@@ -56,5 +55,5 @@ const signInPagePost = async (req, res) => {
 
 module.exports = {
 	signInPage,
-	signInPagePost
+	signInPagePost,
 };

@@ -1,10 +1,21 @@
 const express = require('express')
 const fs = require('fs')
+const session = require("express-session")
+
+const config = require("../../config.json")
 
 const app = express()
+
+app.use(session({
+  secret: config.secret,
+  saveUninitialized: true,
+  resave: true,
+}));
+
 const port = 5221
 
 const dateEt = require('./src/dateTimeET')
+
 
 const visitRoutes = require('./routes/visitRoutes')
 const eestifilmRoutes = require('./routes/eestifilmRoutes')
@@ -21,6 +32,11 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/', indexRoutes)
+
+app.get("/home", (req, res) => {
+  console.log("Sisse logis kasutaja id: " + req.session.userId)
+  res.render("home")
+})
 
 app.get('/timenow', (req, res) => {
   res.render('timenow', { 
@@ -57,6 +73,8 @@ app.use("/news", newsRoutes);
 app.use("/signup", signUpRoutes);
 
 app.use("/signin", signInRoutes);
+
+app.use("/home", signInRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
