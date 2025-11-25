@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karl-Gregor's Website</title>
+    <style>
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+    
+        body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+          font-family: Arial, sans-serif;
+          background-color: #f5f5f5;
+          padding: 20px;
+        }
+    
+        h2 {
+          color: #333;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+    
+        form {
+          background-color: #fff;
+          padding: 30px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          max-width: 500px;
+          width: 100%;
+          margin-bottom: 20px;
+        }
+    
+        label {
+          display: block;
+          margin-bottom: 6px;
+          color: #333;
+          font-weight: bold;
+        }
+    
+        input[type="text"],
+        input[type="file"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+    
+        textarea {
+          height: 100px;
+          resize: vertical;
+        }
+    
+        /* Radio group */
+        .radio-group {
+          margin-bottom: 15px;
+        }
+    
+        .radio-option {
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          cursor: pointer;
+        }
+    
+        .radio-option input[type="radio"] {
+          appearance: none;
+          width: 18px;
+          height: 18px;
+          border: 2px solid #999;
+          border-radius: 50%;
+          margin-right: 10px;
+          transition: all 0.2s ease;
+          position: relative;
+        }
+    
+        .radio-option input[type="radio"]:checked {
+          border: 6px solid #000;
+        }
+    
+        button,
+        input[type="submit"] {
+          background-color: #007bff;
+          color: white;
+          padding: 12px 24px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          width: 100%;
+          transition: background-color 0.2s ease;
+        }
+    
+        button:hover,
+        input[type="submit"]:hover {
+          background-color: #0056b3;
+        }
+    
+        .add-link {
+          text-align: center;
+          margin-top: 20px;
+        }
+    
+        .add-link a {
+          color: #007bff;
+          text-decoration: none;
+          padding: 10px 20px;
+          background-color: white;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.2s ease;
+        }
+    
+        .add-link a:hover {
+          background-color: #f8f9fa;
+        }
+    
+        .back-link {
+          text-align: center;
+          margin-top: 20px;
+        }
+    
+        .back-link a {
+          color: #007bff;
+          text-decoration: none;
+          padding: 10px 20px;
+          background-color: white;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.2s ease;
+        }
+    
+        .back-link a:hover {
+          background-color: #f8f9fa;
+        }
+    
+        .message {
+          padding: 10px;
+          margin-bottom: 20px;
+          border-radius: 5px;
+          text-align: center;
+        }
+    
+        .success {
+          background-color: #d4edda;
+          color: #155724;
+          border: 1px solid #c3e6cb;
+        }
+    
+        .error {
+          background-color: #f8d7da;
+          color: #721c24;
+          border: 1px solid #f5c6cb;
+        }
+      </style>
+</head>
+<body>
+    <h2>Kasutajakonto loomine</h2>
+    <form method="POST">
+      <label for="firstNameInput">Sisesta oma eesnimi: </label>
+      <input type="text" id="firstNameInput" name="firstNameInput" placeholder="Eesnimi ..." required>
+    <br>
+    <label for="lastNameInput">Sisesta oma perekonnanimi: </label>
+      <input type="text" id="lastNameInput" name="lastNameInput" placeholder="Perekonnanimi ..." required>
+    <br>
+    <label for="birthDateInput">Sisesta sünnikuupäev: </label>
+    <input type="date" id="birthDateInput" name="birthDateInput" required>
+    <br>
+    <input type="radio" id="genderInput1" name="genderInput" value="1" checked>
+    <label for="genderInput1">Mees</label>
+    <br>
+    <input type="radio" id="genderInput2" name="genderInput" value="2">
+    <label for="genderInput2">Naine</label>
+    <br>
+    <label for="emailInput">E-mail (kasutajatunnuseks)</label>
+    <input type="email" id="emailInput" name="emailInput" placeholder="Sinu e-mail ...." required>
+    <br>
+    <label for="passwordInput">Salasõna (min 8 märki)</label>
+    <input type="password" id="passwordInput" name="passwordInput" required>
+    <br>
+    <label for="confirmPasswordInput">Korda salasõna</label>
+    <input type="password" id="confirmPasswordInput" name="confirmPasswordInput" required>
+    <br>
+    <input type="submit" id="userSubmit" name="userSubmit" value="Loo kasutajakonto">
+    </form>
+    <% if (typeof notice !== 'undefined' && notice) { %>
+        <p class="message <%= notice.includes('viga') || notice.includes('Viga') ? 'error' : 'success' %>"><%= notice %></p>
+    <% } %>
+</body>
+</html>
