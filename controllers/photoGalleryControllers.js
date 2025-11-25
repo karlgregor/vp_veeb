@@ -14,7 +14,7 @@ const photogalleryHome = async (req, res)=>{
 	try {
 	  conn = await mysql.createConnection(dbConfig);
       console.log("DB connection established");
-	  let sqlReq = "SELECT filename, alttext FROM photogallery WHERE privacy >= ? AND deleted IS NULL";
+	  let sqlReq = "SELECT filename, alttext, first_name, last_name FROM photogallery WHERE privacy >= ? AND deleted IS NULL";
 	  const privacy = 2;
 	  const [rows, fields] = await conn.execute(sqlReq, [privacy]);
 	  console.log("Rows: " + rows);
@@ -24,7 +24,7 @@ const photogalleryHome = async (req, res)=>{
 		  if(rows[i].alttext != ""){
 			  altText = rows[i].alttext;
 		  }
-		  galleryData.push({src: rows[i].filename, alt: altText});
+		  galleryData.push({src: rows[i].filename, alt: altText, owner_name: first_name + " " + last_name});
 	  }
 	  res.render("photogallery", {galleryData: galleryData, imagehref: "/gallery/thumbs/"});
 	}
@@ -128,7 +128,7 @@ const photogalleryPersonalPicPost = async (req, res) => {
             userid
         ]);
 
-        res.redirect(`/myphotos/${photoId}`);
+        res.redirect(`/photogallery/myphotos/${photoId}`);
     } catch (err) {
         console.log(err);
         res.render("singlephoto", { error: "Viga salvestamisel!", photo: null });

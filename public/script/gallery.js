@@ -10,6 +10,7 @@ window.onload = function(){
 function openModal(e){
 	document.querySelector("#modalImage").src = "/gallery/normal/" + e.target.dataset.filename;
 	document.querySelector("#modalCaption").innerHTML = e.target.alt;
+	document.querySelector("#modalOwnerName").innerHTML = e.target.owner_name;
 	document.querySelector("#modal").showModal();
 }
 
