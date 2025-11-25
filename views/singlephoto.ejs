@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minu foto</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          min-height: 100vh;
+          font-family: Arial, sans-serif;
+          background-color: #f5f5f5;
+          padding: 20px;
+        }
+
+        h2 {
+          color: #333;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+
+        .photo-container {
+          background-color: #fff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          width: 100%;
+          margin-bottom: 30px;
+          text-align: center;
+        }
+
+        .photo-container img {
+          max-width: 100%;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+
+        form {
+          background-color: #fff;
+          padding: 25px;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+          max-width: 600px;
+          width: 100%;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 6px;
+          color: #333;
+          font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 16px;
+        }
+
+        button[type="submit"] {
+          background-color: #007bff;
+          color: white;
+          padding: 12px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          font-size: 16px;
+          width: 100%;
+          transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+          background-color: #0056b3;
+        }
+
+        .back-link {
+          margin-top: 20px;
+        }
+
+        .back-link a {
+          color: #007bff;
+          text-decoration: none;
+          padding: 10px 20px;
+          background-color: white;
+          border-radius: 5px;
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+          transition: 0.2s;
+        }
+
+        .back-link a:hover {
+          background-color: #f8f9fa;
+        }
+
+        .error {
+          background-color: #f8d7da;
+          color: #721c24;
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid #f5c6cb;
+          border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Minu foto</h2>
+
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+
+    <% if (photo) { %>
+
+      <div class="photo-container">
+        <img src="<%= imagehref + photo.filename %>" alt="<%= photo.alttext %>">
+        <p><strong>Fail:</strong> <%= photo.filename %></p>
+      </div>
+
+      <form method="POST">
+        <label>Alt tekst:</label>
+        <input type="text" name="altInput" value="<%= photo.alttext %>">
+
+        <label>Privaatsus:</label>
+        <select name="privacyInput">
+          <option value="1" <%= photo.privacy == 1 ? "selected" : "" %>>Privaatne</option>
+          <option value="2" <%= photo.privacy == 2 ? "selected" : "" %>>Piiratud</option>
+          <option value="3" <%= photo.privacy == 3 ? "selected" : "" %>>Avalik</option>
+        </select>
+
+        <button type="submit">Salvesta muudatused</button>
+      </form>
+
+      <div class="back-link">
+        <a href="/myphotos">← Tagasi minu galeriisse</a>
+      </div>
+
+    <% } %>
+
+</body>
+</html>
