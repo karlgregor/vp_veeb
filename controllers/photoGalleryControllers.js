@@ -9,36 +9,61 @@ const dbConfig = {
 	database: dbInfo.database
 };
 
-const photogalleryHome = async (req, res)=>{
-	let conn;
-	try {
-	  conn = await mysql.createConnection(dbConfig);
-      console.log("DB connection established");
-	  let sqlReq = "SELECT filename, alttext, first_name, last_name FROM photogallery WHERE privacy >= ? AND deleted IS NULL";
-	  const privacy = 2;
-	  const [rows, fields] = await conn.execute(sqlReq, [privacy]);
-	  console.log("Rows: " + rows);
-	  let galleryData = [];
-	  for (let i = 0; i < rows.length; i++){
-		  let altText = "Galeriipilt";
-		  if(rows[i].alttext != ""){
-			  altText = rows[i].alttext;
-		  }
-		  galleryData.push({src: rows[i].filename, alt: altText, owner_name: first_name + " " + last_name});
-	  }
-	  res.render("photogallery", {galleryData: galleryData, imagehref: "/gallery/thumbs/"});
-	}
-	catch(err) {
-	  console.log(err);
-	  res.render("photogallery", {galleryData: [], imagehref: "/gallery/thumbs/"});
-	}
-	finally {
-	  if(conn){
-		await conn.end();
-		console.log("DB connection closed!");
-	  }
-	}
+const photogalleryHome = async (req, res) => {
+    let conn;
+    try {
+        conn = await mysql.createConnection(dbConfig);
+        console.log("DB connection established");
+
+        const sqlReq = `
+            SELECT 
+                p.filename,
+                p.alttext,
+                u.first_name,
+                u.last_name
+            FROM photogallery AS p
+            LEFT JOIN users_id AS u ON p.user_id = u.id
+            WHERE p.privacy >= ? AND p.deleted IS NULL
+        `;
+
+        const privacy = 2;
+        const [rows] = await conn.execute(sqlReq, [privacy]);
+
+        let galleryData = [];
+        for (let i = 0; i < rows.length; i++) {
+
+            let altText = rows[i].alttext !== "" ? rows[i].alttext : "Galeriipilt";
+            let ownerName = rows[i].first_name && rows[i].last_name
+                ? `${rows[i].first_name} ${rows[i].last_name}`
+                : "Tundmatu kasutaja";
+
+            galleryData.push({
+                src: rows[i].filename,
+                alt: altText,
+                owner_name: ownerName
+            });
+        }
+
+        res.render("photogallery", {
+            galleryData: galleryData,
+            imagehref: "/gallery/thumbs/"
+        });
+    }
+    catch (err) {
+        console.log(err);
+        res.render("photogallery", {
+            galleryData: [],
+            imagehref: "/gallery/thumbs/"
+        });
+    }
+    finally {
+        if (conn) {
+            await conn.end();
+            console.log("DB connection closed!");
+        }
+    }
 };
+
 
 const photogalleryPersonalHome = async (req, res)=>{
     let conn;
