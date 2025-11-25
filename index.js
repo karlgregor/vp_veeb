@@ -12,7 +12,8 @@ const galleryPhotoUploadRoutes = require('./routes/galleryPhotoUploadRoutes')
 const indexRoutes = require('./routes/indexRoutes')
 const photogalleryRouter = require("./routes/photogalleryRoutes");
 const newsRoutes = require("./routes/newsRoutes");
-const signupRoutes = require("./routes/signupRoutes");
+const signUpRoutes = require("./routes/signUpRoutes");
+const signInRoutes = require("./routes/signInRoutes");
 
 app.set('view engine', 'ejs')
 app.set('views', './views')
@@ -53,7 +54,9 @@ app.use("/photogallery", photogalleryRouter);
 
 app.use("/news", newsRoutes);
 
-app.use("/signup", signupRoutes);
+app.use("/signup", signUpRoutes);
+
+app.use("/signin", signInRoutes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

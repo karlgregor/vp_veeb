@@ -9,11 +9,11 @@ const dbConfig = {
 	database: dbInfo.database
 };
 
-const signupPage = (req, res) => {
+const signUpPage = (req, res) => {
 	res.render("signup", {notice: "Ootan andmeid ..."});
 };
 
-const signupPagePost = async (req, res) => {
+const signUpPagePost = async (req, res) => {
 	let conn;
 	console.log(req.body);
 	if(
@@ -61,6 +61,6 @@ const signupPagePost = async (req, res) => {
 
 
 module.exports = {
-	signupPage,
-	signupPagePost
+	signUpPage,
+	signUpPagePost
 };
