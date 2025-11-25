@@ -40,10 +40,12 @@ const signInPagePost = async (req, res) => {
   
 	  if (!match) {
 		return res.render("signin", { notice: "Vale e-mail või parool!" });
+	  } else {
+		req.session.userId = user.id;
+		req.session.userEmail = user.email;
+		console.log("Login OK:", user.email);
+		return res.redirect("/home");
 	  }
-  
-	  console.log("Login OK:", user.email);
-	  res.redirect("/home");
   
 	} catch (err) {
 	  console.log(err);
