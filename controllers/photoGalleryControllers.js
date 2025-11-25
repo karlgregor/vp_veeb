@@ -59,11 +59,11 @@ const photogalleryPersonalHome = async (req, res)=>{
             alt: r.alttext && r.alttext !== "" ? r.alttext : "Galeriipilt"
         }));
 
-        res.render("photogallery", {galleryData, imagehref: "/gallery/thumbs/"});
+        res.render("photogallery_personal", {galleryData, imagehref: "/gallery/thumbs/"});
     }
     catch(err) {
         console.log(err);
-        res.render("photogallery", {galleryData: [], imagehref: "/gallery/thumbs/"});
+        res.render("photogallery_personal", {galleryData: [], imagehref: "/gallery/thumbs/"});
     }
     finally {
         if(conn) await conn.end();
