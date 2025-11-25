@@ -22,7 +22,7 @@ const photogalleryHome = async (req, res) => {
                 u.first_name,
                 u.last_name
             FROM photogallery AS p
-            LEFT JOIN users_id AS u ON p.user_id = u.id
+            LEFT JOIN users_id AS u ON p.userid = u.id
             WHERE p.privacy >= ? AND p.deleted IS NULL
         `;
 
